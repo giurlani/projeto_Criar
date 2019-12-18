@@ -4,32 +4,50 @@ using System.Linq;
 using System.Web;
 using System.Data;
 
-/// <summary>
-/// Descrição resumida de PilotoDLL
-/// </summary>
 public class CorridaBLL
 {
-    public String Hora_corr {get; set;}
-    public int Volta_corr {get; set;}
-    public String Tempo_corr {get; set;}
-    public float Velocidade_corr {get; set;}
-    public int Piloto_id_piloto{get; set;}
-
+    public String Hora {get; set;}
+    public String Piloto { get; set; }
+    public int Volta {get; set;}
+    public String Tempo {get; set;}
+    public String Velocidade {get; set;}
+    
+  
     DAL objDAL = new DAL();
 
-    public DataTable RetPilotoCorrida()
+  
+    public DataTable RetListaCorrida()
     {
-        return objDAL.RetDataTable("select * from piloto");
+        return objDAL.RetDataTable("select * from kart");
     }
+
+    public DataTable CarregarCorridaPorId(string id)
+    {
+        return objDAL.RetDataTable("select * FROM kart WHERE id = " + id);
+    }
+
 
     public void InserirCorrida()
     {
-        string sql = "INSERT INTO corrida(hora_corr,volta_corr,tempo_corr,velocidade_corr,piloto_id_piloto)" +
+        string sql = "INSERT INTO corrida(Hora,Piloto,Volta,Tempo,Velocidade)" +
                      "VALUES('{0}','{1}','{2}','{3}','{4}')";
 
-        sql = string.Format(sql, Hora_corr, Volta_corr, Tempo_corr, Velocidade_corr, Piloto_id_piloto);
+        sql = string.Format(sql,  Hora, Piloto, Volta, Tempo, Velocidade);
         objDAL.ExecutarComandoSQL(sql);
-    }       
+    }    
+    
+    public void AlterarCorrida(string id)
+    {
+        string sql = "UPDATE kart SET  hora = '{0}', piloto = '{1}', volta  = '{2}',tempo  = '{3}'," +
+                     "velocidade = '{4}' WHERE id = '{5}'";
+        sql = string.Format(sql, Hora, Piloto, Volta, Tempo, Velocidade, id);
+        objDAL.ExecutarComandoSQL(sql);
+    }
 
+    public void ExcluirCorrida(string id)
+    {
+        string sql = string.Format("DELETE FROM kart WHERE id='{0}'", id);
+    }
+    
 
 }

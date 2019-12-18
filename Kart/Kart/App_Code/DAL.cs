@@ -5,13 +5,10 @@ using System.Web;
 using System.Data;
 using MySql.Data.MySqlClient;
 
-/// <summary>
-/// Descrição resumida de Class1
-/// </summary>
 public class DAL
 {
     private string server = "localhost";
-    private string database = "kart";
+    private string database = "corrida";
     private string user = "root";
     private string password = "";
     private string connectionString = "Server={0};Database={1};Uid={2};Pwd={3};";
